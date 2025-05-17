@@ -14,4 +14,6 @@ router.post("/reviews", addReviews);
 router.patch("/reviews/:id", updateReviews);
 router.delete("/reviews/:id", deleteReviews);
 
+console.log("hello");
+
 module.exports = router;
