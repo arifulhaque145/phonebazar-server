@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/reviews", allReviews);
 router.get("/reviews/:id", singleProductReviews);
 router.post("/reviews", addReviews);
-router.patch("/reviews/:id", updateReviews);
+router.patch("/reviews", updateReviews);
 router.delete("/reviews/:id", deleteReviews);
 
 module.exports = router;

@@ -9,12 +9,10 @@ const {
 exports.allReviews = async (req, res) => {
   try {
     const reviews = await actionAllReviews();
-    res
-      .status(201)
-      .json({
-        data: reviews,
-        message: "All review data fetched successfully.",
-      });
+    res.status(201).json({
+      data: reviews,
+      message: "All review data fetched successfully.",
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -50,8 +48,8 @@ exports.addReviews = async (req, res) => {
 
 exports.updateReviews = async (req, res) => {
   try {
-    const reviewData = req.body;
-    const review = await actionUpdateReviews(reviewData);
+    const updatedReviewData = req.body;
+    const review = await actionUpdateReviews(updatedReviewData);
 
     res.status(201).json({
       data: review,

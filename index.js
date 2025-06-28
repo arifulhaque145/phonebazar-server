@@ -4,6 +4,7 @@ const { connectDB } = require("./server/config/database");
 const authRouter = require("./server/routes/auth.router");
 const phoneRouter = require("./server/routes/phones.router");
 const reviewsRouter = require("./server/routes/reviews.router");
+const tesmonialsRouter = require("./server/routes/testimonials.router");
 require("dotenv").config();
 
 const app = express();
@@ -18,6 +19,7 @@ connectDB();
 app.use("/api/v1", authRouter);
 app.use("/api/v1", phoneRouter);
 app.use("/api/v1", reviewsRouter);
+app.use("/api/v1", tesmonialsRouter);
 
 // Server testing
 app.get("/", (req, res) => {

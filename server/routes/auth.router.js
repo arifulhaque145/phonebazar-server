@@ -3,13 +3,17 @@ const {
   allUsers,
   singleUser,
   register,
-  login,
+  updateUser,
+  deleteUser,
+  googleLogin,
+  addSingleUser,
 } = require("../controllers/auth.controller");
 const router = express.Router();
 
 router.get("/users", allUsers);
 router.get("/users/:id", singleUser);
-router.get("/login", login);
-router.post("/register", register);
+router.post("/users", addSingleUser);
+router.patch("/users/:id", updateUser);
+router.delete("/users/:id", deleteUser);
 
 module.exports = router;
