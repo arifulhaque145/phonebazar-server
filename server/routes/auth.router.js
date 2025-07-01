@@ -2,12 +2,11 @@ const express = require("express");
 const {
   allUsers,
   singleUser,
-  register,
   updateUser,
   deleteUser,
-  googleLogin,
   addSingleUser,
-} = require("../controllers/auth.controller");
+} = require("../controllers/auth.controller.js");
+
 const router = express.Router();
 
 router.get("/users", allUsers);

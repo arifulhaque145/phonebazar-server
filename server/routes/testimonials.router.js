@@ -4,7 +4,7 @@ const {
   addTestimonials,
   updateTestimonials,
   deleteTestimonials,
-} = require("../controllers/testimonials.controller");
+} = require("../controllers/testimonials.controller.js");
 const router = express.Router();
 
 router.get("/testimonials", allTestimonials);

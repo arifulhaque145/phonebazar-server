@@ -1,11 +1,13 @@
-const express = require("express");
 const cors = require("cors");
-const { connectDB } = require("./server/config/database");
-const authRouter = require("./server/routes/auth.router");
-const phoneRouter = require("./server/routes/phones.router");
-const reviewsRouter = require("./server/routes/reviews.router");
-const tesmonialsRouter = require("./server/routes/testimonials.router");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const express = require("express");
+const { connectDB } = require("./server/config/database.js");
+const authRouter = require("./server/routes/auth.router.js");
+const phoneRouter = require("./server/routes/phones.router.js");
+const reviewsRouter = require("./server/routes/reviews.router.js");
+const testimonialsRouter = require("./server/routes/testimonials.router.js");
+
+dotenv.config();
 
 const app = express();
 
@@ -19,15 +21,15 @@ connectDB();
 app.use("/api/v1", authRouter);
 app.use("/api/v1", phoneRouter);
 app.use("/api/v1", reviewsRouter);
-app.use("/api/v1", tesmonialsRouter);
+app.use("/api/v1", testimonialsRouter);
 
 // Server testing
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("I am here to listen from 5000");
 });
 
 // Server Running
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

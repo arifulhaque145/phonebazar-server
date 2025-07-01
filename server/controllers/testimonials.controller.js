@@ -3,9 +3,9 @@ const {
   actionAddTestimonials,
   actionUpdateTestimonials,
   actionDeleteTestimonials,
-} = require("../services/testimonials.services");
+} = require("../services/testimonials.services.js");
 
-exports.allTestimonials = async (req, res) => {
+const allTestimonials = async (_req, res) => {
   try {
     const reviews = await actionAllTestimonials();
     res.status(201).json({
@@ -17,9 +17,9 @@ exports.allTestimonials = async (req, res) => {
   }
 };
 
-exports.addTestimonials = async (req, res) => {
+const addTestimonials = async (_req, res) => {
   try {
-    const testimonialsData = req.body;
+    const testimonialsData = _req.body;
     const testimonials = await actionAddTestimonials(testimonialsData);
 
     res.status(201).json({
@@ -31,9 +31,9 @@ exports.addTestimonials = async (req, res) => {
   }
 };
 
-exports.updateTestimonials = async (req, res) => {
+const updateTestimonials = async (_req, res) => {
   try {
-    const updatedReviewData = req.body;
+    const updatedReviewData = _req.body;
     const result = await actionUpdateTestimonials(updatedReviewData);
 
     res.status(201).json({
@@ -45,9 +45,9 @@ exports.updateTestimonials = async (req, res) => {
   }
 };
 
-exports.deleteTestimonials = async (req, res) => {
+const deleteTestimonials = async (_req, res) => {
   try {
-    const testimonialId = req.params.id;
+    const testimonialId = _req.params.id;
     const result = await actionDeleteTestimonials(testimonialId);
 
     res.status(201).json({
@@ -57,4 +57,11 @@ exports.deleteTestimonials = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  allTestimonials,
+  addTestimonials,
+  updateTestimonials,
+  deleteTestimonials,
 };

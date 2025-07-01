@@ -5,7 +5,7 @@ const {
   addReviews,
   updateReviews,
   deleteReviews,
-} = require("../controllers/reviews.controller");
+} = require("../controllers/reviews.controller.js");
 const router = express.Router();
 
 router.get("/reviews", allReviews);

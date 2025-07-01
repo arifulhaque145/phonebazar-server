@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
-const { phoneDB } = require("../config/database");
+const { phoneDB } = require("../config/database.js");
 
 const db = phoneDB.collection("users");
 
@@ -10,7 +10,7 @@ exports.actionAllUsers = async () => {
 };
 
 exports.actionSingleUser = async (id) => {
-  const query = { _id: new ObjectId(id) };
+  const query = { _id: ObjectId.createFromHexString(id) };
   const result = await db.findOne(query);
   return result;
 };
@@ -33,29 +33,28 @@ exports.actionRegister = async (userData) => {
 };
 
 exports.actionAddSingleUser = async (userData) => {
-  let result = await db.findOne({ email: userData?.email });
+  // Check if user already exists
+  const existingUser = await db.findOne({ email: userData?.email });
+  if (existingUser) return null;
 
-  let hashed;
-  if (result !== null) return userData;
-  if (userData?.password) {
-    const saltRounds = 10;
-    hashed = await bcrypt.hash(userData?.password, saltRounds);
-  } else {
-    hashed = null;
-  }
+  // Hash password if provided
+  const hashedPassword = userData?.password
+    ? await bcrypt.hash(userData.password, 10)
+    : null;
 
-  result = await db.insertOne({ ...userData, password: hashed });
-  return userData;
+  // Insert new user
+  const result = await db.insertOne({ ...userData, password: hashedPassword });
+  return result;
 };
 
 exports.actionUpdateUser = async ({ userId, userData }) => {
-  const filter = { _id: new ObjectId(userId) };
+  const filter = { _id: new ObjectId(String(userId)) };
   const updatedData = { $set: userData };
   const result = await db.updateOne(filter, updatedData);
   return result;
 };
 
 exports.actionDeleteUser = async (id) => {
-  const result = await db.deleteOne({ _id: new ObjectId(id) });
+  const result = await db.deleteOne({ _id: new ObjectId(String(id)) });
   return result;
 };

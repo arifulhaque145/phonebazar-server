@@ -5,7 +5,8 @@ const {
   addPhone,
   updatePhone,
   deletePhone,
-} = require("../controllers/phone.controller");
+} = require("../controllers/phone.controller.js");
+
 const router = express.Router();
 
 router.get("/phones", allPhones);

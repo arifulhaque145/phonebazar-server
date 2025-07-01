@@ -1,13 +1,12 @@
 const {
-  actionRegister,
-  actionGoogleLogin,
   actionAllUsers,
   actionSingleUser,
   actionUpdateUser,
   actionAddSingleUser,
+  actionDeleteUser,
 } = require("../services/auth.services");
 
-exports.allUsers = async (req, res) => {
+const allUsers = async (_req, res) => {
   try {
     const users = await actionAllUsers();
     res
@@ -18,7 +17,7 @@ exports.allUsers = async (req, res) => {
   }
 };
 
-exports.singleUser = async (req, res) => {
+const singleUser = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await actionSingleUser(userId);
@@ -35,7 +34,7 @@ exports.singleUser = async (req, res) => {
   }
 };
 
-exports.addSingleUser = async (req, res) => {
+const addSingleUser = async (req, res) => {
   try {
     const userData = req.body;
     const user = await actionAddSingleUser(userData);
@@ -50,11 +49,11 @@ exports.addSingleUser = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
     const userData = req.body;
-    const res = await actionUpdateUser({ userId, userData });
+    const user = await actionUpdateUser({ userId, userData });
 
     res.status(200).json({ data: user, message: "Login successful." });
   } catch (error) {
@@ -62,13 +61,21 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const res = await actionDeleteUser(userId);
+    const user = await actionDeleteUser(userId);
 
     res.status(200).json({ data: user, message: "Login successful." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  allUsers,
+  singleUser,
+  addSingleUser,
+  updateUser,
+  deleteUser,
 };

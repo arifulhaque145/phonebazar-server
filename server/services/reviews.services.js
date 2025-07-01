@@ -1,20 +1,20 @@
 const { ObjectId } = require("mongodb");
-const { phoneDB } = require("../config/database");
+const { phoneDB } = require("../config/database.js");
 
 const db = phoneDB.collection("reviews");
 
-exports.actionAllReviews = async () => {
+const actionAllReviews = async () => {
   const result = await db.find({}).toArray();
   return result;
 };
 
-exports.actionSingleProductReviews = async (id) => {
+const actionSingleProductReviews = async (id) => {
   const query = { product_id: id };
   const result = await db.find(query).toArray();
   return result;
 };
 
-exports.actionAddReviews = async (reviewData) => {
+const actionAddReviews = async (reviewData) => {
   const result = await db.insertOne({
     ...reviewData,
     createAt: new Date().toISOString(),
@@ -22,10 +22,10 @@ exports.actionAddReviews = async (reviewData) => {
   return result;
 };
 
-exports.actionUpdateReviews = async (updateReviewData) => {
+const actionUpdateReviews = async (updateReviewData) => {
   const { _id, ...rest } = updateReviewData;
 
-  const filter = { _id: new ObjectId(_id) };
+  const filter = { _id: new ObjectId(String(_id)) };
   const updateDoc = {
     $set: {
       ...rest,
@@ -35,7 +35,15 @@ exports.actionUpdateReviews = async (updateReviewData) => {
   return result;
 };
 
-exports.actionDeleteReviews = async (reviewId) => {
-  const result = await db.deleteOne({ _id: new ObjectId(reviewId) });
+const actionDeleteReviews = async (reviewId) => {
+  const result = await db.deleteOne({ _id: new ObjectId(String(reviewId)) });
   return result;
+};
+
+module.exports = {
+  actionAllReviews,
+  actionSingleProductReviews,
+  actionAddReviews,
+  actionUpdateReviews,
+  actionDeleteReviews,
 };

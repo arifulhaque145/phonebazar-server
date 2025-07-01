@@ -1,14 +1,14 @@
 const { ObjectId } = require("mongodb");
-const { phoneDB } = require("../config/database");
+const { phoneDB } = require("../config/database.js");
 
 const db = phoneDB.collection("testimonials");
 
-exports.actionAllTestimonials = async () => {
+const actionAllTestimonials = async () => {
   const result = await db.find({}).toArray();
   return result;
 };
 
-exports.actionAddTestimonials = async (testimonialData) => {
+const actionAddTestimonials = async (testimonialData) => {
   const result = await db.insertOne({
     ...testimonialData,
     createAt: new Date().toISOString(),
@@ -16,10 +16,10 @@ exports.actionAddTestimonials = async (testimonialData) => {
   return result;
 };
 
-exports.actionUpdateTestimonials = async (updateTestimonialData) => {
+const actionUpdateTestimonials = async (updateTestimonialData) => {
   const { _id, ...rest } = updateTestimonialData;
 
-  const filter = { _id: new ObjectId(_id) };
+  const filter = { _id: new ObjectId(String(_id)) };
   const updateDoc = {
     $set: {
       ...rest,
@@ -29,7 +29,14 @@ exports.actionUpdateTestimonials = async (updateTestimonialData) => {
   return result;
 };
 
-exports.actionDeleteTestimonials = async (testimonialId) => {
-  const result = await db.deleteOne({ _id: new ObjectId(testimonialId) });
+const actionDeleteTestimonials = async (testimonialId) => {
+  const result = await db.deleteOne({ _id: new ObjectId(String(testimonialId)) });
   return result;
+};
+
+module.exports = {
+  actionAllTestimonials,
+  actionAddTestimonials,
+  actionUpdateTestimonials,
+  actionDeleteTestimonials,
 };

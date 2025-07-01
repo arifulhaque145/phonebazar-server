@@ -4,9 +4,9 @@ const {
   actionAddReviews,
   actionUpdateReviews,
   actionDeleteReviews,
-} = require("../services/reviews.services");
+} = require("../services/reviews.services.js");
 
-exports.allReviews = async (req, res) => {
+exports.allReviews = async (_req, res) => {
   try {
     const reviews = await actionAllReviews();
     res.status(201).json({

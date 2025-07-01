@@ -4,9 +4,9 @@ const {
   actionAddPhone,
   actionUpdatePhone,
   actionDeletePhone,
-} = require("../services/phone.services");
+} = require("../services/phone.services.js");
 
-exports.allPhones = async (req, res) => {
+const allPhones = async (_req, res) => {
   try {
     const phones = await actionAllPhones();
     res
@@ -17,9 +17,9 @@ exports.allPhones = async (req, res) => {
   }
 };
 
-exports.singlePhone = async (req, res) => {
+const singlePhone = async (_req, res) => {
   try {
-    const id = req.params.id;
+    const id = _req.params.id;
     const phone = await actionSinglePhone(id);
 
     res.status(201).json({
@@ -31,9 +31,9 @@ exports.singlePhone = async (req, res) => {
   }
 };
 
-exports.addPhone = async (req, res) => {
+const addPhone = async (_req, res) => {
   try {
-    const phoneData = req.body;
+    const phoneData = _req.body;
     const phone = await actionAddPhone(phoneData);
 
     res.status(201).json({
@@ -45,9 +45,9 @@ exports.addPhone = async (req, res) => {
   }
 };
 
-exports.updatePhone = async (req, res) => {
+const updatePhone = async (_req, res) => {
   try {
-    const phoneData = req.body;
+    const phoneData = _req.body;
     const phone = await actionUpdatePhone(phoneData);
 
     res.status(201).json({
@@ -59,9 +59,9 @@ exports.updatePhone = async (req, res) => {
   }
 };
 
-exports.deletePhone = async (req, res) => {
+const deletePhone = async (_req, res) => {
   try {
-    const phoneId = req.params.id;
+    const phoneId = _req.params.id;
     const phone = await actionDeletePhone(phoneId);
 
     res.status(201).json({
@@ -71,4 +71,12 @@ exports.deletePhone = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  allPhones,
+  singlePhone,
+  addPhone,
+  updatePhone,
+  deletePhone,
 };
