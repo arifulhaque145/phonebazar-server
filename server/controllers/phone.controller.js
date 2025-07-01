@@ -9,9 +9,13 @@ const {
 const allPhones = async (_req, res) => {
   try {
     const phones = await actionAllPhones();
+    if (!phones || phones.length === 0) {
+      return res.status(404).json({ message: "No phones found." });
+    }
+
     res
       .status(201)
-      .json({ data: phones, message: "Phone registered successfully." });
+      .json({ data: phones, message: "Phones are found successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -5,6 +5,9 @@ const db = phoneDB.collection("phones");
 
 const actionAllPhones = async () => {
   const result = await db.find({}).toArray();
+  if (!result || result.length === 0) {
+    return [];
+  }
   return result;
 };
 
