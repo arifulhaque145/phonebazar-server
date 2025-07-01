@@ -24,12 +24,12 @@ app.use("/api/v1", reviewsRouter);
 app.use("/api/v1", testimonialsRouter);
 
 // Server testing
-app.get("/", (_, res) => {
-  res.send("I am here to listen from 5000");
+app.get("/", (req, res) => {
+  res.send("I am here to listen...");
 });
 
 // Server Running
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log("Server is running...");
 });
