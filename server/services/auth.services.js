@@ -47,14 +47,14 @@ exports.actionAddSingleUser = async (userData) => {
   return result;
 };
 
-exports.actionUpdateUser = async ({ userId, userData }) => {
-  const filter = { _id: new ObjectId(String(userId)) };
+exports.actionUpdateUser = async ({ userEmailId, userData }) => {
+  const filter = { email: userEmailId };
   const updatedData = { $set: userData };
   const result = await db.updateOne(filter, updatedData);
   return result;
 };
 
-exports.actionDeleteUser = async (id) => {
-  const result = await db.deleteOne({ _id: new ObjectId(String(id)) });
+exports.actionDeleteUser = async (userEmail) => {
+  const result = await db.deleteOne({ email: userEmail });
   return result;
 };

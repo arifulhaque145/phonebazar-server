@@ -51,9 +51,9 @@ const addSingleUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userEmailId = req.params.id;
     const userData = req.body;
-    const user = await actionUpdateUser({ userId, userData });
+    const user = await actionUpdateUser({ userEmailId, userData });
 
     res.status(200).json({ data: user, message: "Login successful." });
   } catch (error) {
